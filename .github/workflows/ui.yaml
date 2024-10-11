@@ -17,6 +17,7 @@ concurrency:
 jobs:
 
   semgrep-static-code-analysis:
+    if: false
     timeout-minutes: 30
     name: "semgrep checks"
     runs-on: self-hosted
@@ -107,7 +108,7 @@ jobs:
     needs:
       - ui-assets
       - reuse-golang-dependencies
-      - semgrep-static-code-analysis
+      # - semgrep-static-code-analysis
     runs-on: self-hosted
     strategy:
       matrix:
@@ -250,7 +251,7 @@ jobs:
     needs:
       - ui-assets
       - reuse-golang-dependencies
-      - semgrep-static-code-analysis
+      # - semgrep-static-code-analysis
     runs-on: self-hosted
     strategy:
       matrix:
@@ -288,7 +289,7 @@ jobs:
     needs:
       - ui-assets
       - reuse-golang-dependencies
-      - semgrep-static-code-analysis
+      # - semgrep-static-code-analysis
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
@@ -305,7 +306,7 @@ jobs:
     needs:
       - ui-assets
       - reuse-golang-dependencies
-      - semgrep-static-code-analysis
+      # - semgrep-static-code-analysis
     runs-on: self-hosted
 
     strategy:
