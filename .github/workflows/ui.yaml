@@ -67,7 +67,7 @@ jobs:
         working-directory: ./web-app
         continue-on-error: false
         run: |
-          yarn install
+          yarn install --frozen-lockfile --immutable
       - name: Check for Warnings in build output
         working-directory: ./web-app
         continue-on-error: false
