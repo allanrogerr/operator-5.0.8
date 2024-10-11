@@ -9,7 +9,7 @@ jobs:
   shellcheck:
     timeout-minutes: 30
     name: Shellcheck
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         go-version: [ 1.21.x ]
@@ -29,7 +29,7 @@ jobs:
           go list -deps -json ./... | jq -s 'unique_by(.Module.Path)|.[]|select(has("Module"))|.Module' | ./nancy sleuth
   lint:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     strategy:
       matrix:
         go-version: [ 1.21.x ]
@@ -45,7 +45,7 @@ jobs:
           make lint
   govet:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     strategy:
       matrix:
         go-version: [ 1.21.x ]
@@ -62,7 +62,7 @@ jobs:
   vulnerable-dependencies-checks:
     timeout-minutes: 30
     name: "Check for vulnerable dependencies"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         go-version: [ 1.21.x ]
@@ -82,7 +82,7 @@ jobs:
         shell: bash
   gotest:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - lint
       - vulnerable-dependencies-checks
@@ -102,7 +102,7 @@ jobs:
           make gotest
   operator:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - lint
       - vulnerable-dependencies-checks
@@ -129,7 +129,7 @@ jobs:
           make operator
   test-tenant:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - operator
     strategy:
@@ -153,7 +153,7 @@ jobs:
           "${GITHUB_WORKSPACE}/testing/deploy-tenant.sh"
   test-tenant-upgrade:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - operator
     strategy:
@@ -177,7 +177,7 @@ jobs:
           "${GITHUB_WORKSPACE}/testing/deploy-tenant-upgrade.sh"
   test-kes:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - operator
     strategy:
@@ -202,7 +202,7 @@ jobs:
 
   test-policy-binding:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - operator
     strategy:
@@ -227,7 +227,7 @@ jobs:
   helm:
     timeout-minutes: 30
     # The type of runner that the job will run on
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - operator
     strategy:
@@ -258,7 +258,7 @@ jobs:
   helm-floor:
     timeout-minutes: 30
     # The type of runner that the job will run on
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     needs:
       - operator
     strategy:
