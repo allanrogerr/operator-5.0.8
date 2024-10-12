@@ -326,7 +326,7 @@ jobs:
 
       - name: Operator API Tests
         run: |
-          curl -sLO "https://dl.k8s.io/release/v1.23.1/bin/linux/amd64/kubectl" -o kubectl
+          curl -sLO "https://dl.k8s.io/release/v1.30.0/bin/linux/amd64/kubectl" -o kubectl
           chmod +x kubectl
           mv kubectl /usr/local/bin
           "${GITHUB_WORKSPACE}/tests/start-tests-tenant.sh"
